@@ -36,9 +36,9 @@ export default function Footer() {
           <div>
             <h3 className="font-display text-lg font-semibold text-cream mb-4">Contact</h3>
             <p className="text-cream/80 text-sm">
-              hello@ssbi.in
+              srisaibhargavinteriors@gmail.com
               <br />
-              +91 98765 43210
+              +91 6305704978
             </p>
             <p className="mt-2 text-cream/60 text-sm">Mon–Sat, 10am–7pm</p>
           </div>

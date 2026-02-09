@@ -43,11 +43,11 @@ export default function ContactPage() {
               <p className="text-charcoal/80">Fill in your details. We typically respond within 24 hours.</p>
               <div>
                 <p className="text-charcoal font-medium">Email</p>
-                <a href="mailto:hello@ssbi.in" className="text-warm hover:underline">hello@ssbi.in</a>
+                <a href="mailto:srisaibhargavinteriors@gmail.com" className="text-warm hover:underline">srisaibhargavinteriors@gmail.com</a>
               </div>
               <div>
                 <p className="text-charcoal font-medium">Phone</p>
-                <a href="tel:+919876543210" className="text-warm hover:underline">+91 98765 43210</a>
+                <a href="tel:+919876543210" className="text-warm hover:underline">+91 6305704978</a>
               </div>
             </motion.div>
             <motion.form
@@ -80,7 +80,7 @@ export default function ContactPage() {
                   value={formData.phone}
                   onChange={(e) => setFormData((d) => ({ ...d, phone: e.target.value }))}
                   className="w-full px-4 py-3 rounded-xl border border-sand bg-cream/50 focus:outline-none focus:ring-2 focus:ring-warm"
-                  placeholder="+91 98765 43210"
+                  placeholder="+91 6305704978"
                 />
               </div>
               <div>
