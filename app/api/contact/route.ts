@@ -10,8 +10,13 @@ async function saveToFile(payload: {
   email: string;
   requirements: string;
 }) {
-  const dataDir = path.join(process.cwd(), "data");
-  const filePath = path.join(dataDir, "inquiries.json");
+  // On Vercel the filesystem is read-only except for /tmp,
+  // so use /tmp there and the project directory locally.
+  const baseDir =
+    process.env.VERCEL === "1"
+      ? path.join("/tmp", "ssbi-data")
+      : path.join(process.cwd(), "data");
+  const filePath = path.join(baseDir, "inquiries.json");
 
   let inquiries: Array<
     typeof payload & {
@@ -23,7 +28,7 @@ async function saveToFile(payload: {
     const existing = await fs.readFile(filePath, "utf-8");
     inquiries = JSON.parse(existing);
   } catch {
-    await fs.mkdir(dataDir, { recursive: true });
+    await fs.mkdir(baseDir, { recursive: true });
   }
 
   inquiries.push({
@@ -134,8 +139,12 @@ export async function POST(request: NextRequest) {
       requirements: String(requirements).trim(),
     };
 
-    // Save locally
-    await saveToFile(payload);
+    // Save locally (best-effort; don't fail the request if this breaks)
+    try {
+      await saveToFile(payload);
+    } catch (fileError) {
+      console.warn("Saving inquiry to file failed:", fileError);
+    }
 
     // Fire-and-forget notifications; don't block response on these
     sendEmailNotification(payload).catch((err) =>
