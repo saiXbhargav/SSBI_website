@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div>
             <Link href="/" className="font-display text-2xl font-semibold text-cream">
-              SSBI
+              SSB Interiors
             </Link>
             <p className="mt-3 text-cream/80 text-sm leading-relaxed">
               Premium interior design for homes and offices. Transform your space with style and functionality.
@@ -33,18 +33,32 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div>
-            <h3 className="font-display text-lg font-semibold text-cream mb-4">Contact</h3>
-            <p className="text-cream/80 text-sm">
-              srisaibhargavinteriors@gmail.com
-              <br />
-              +91 6305704978
-            </p>
-            <p className="mt-2 text-cream/60 text-sm">Mon–Sat, 10am–7pm</p>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-display text-lg font-semibold text-cream mb-2">Contact</h3>
+              <p className="text-cream/80 text-sm">
+                srisaibhargavinteriors@gmail.com
+                <br />
+                +91 6305704978
+              </p>
+              <p className="mt-1 text-cream/60 text-sm">Mon–Sat, 10am–7pm</p>
+            </div>
+            <div>
+              <h3 className="font-display text-lg font-semibold text-cream mb-2">Follow</h3>
+              <Link
+                href="https://www.instagram.com/srisaibhargavinteriors?igsh=NDRkcWhtYjdpdjdl"
+                className="inline-flex items-center text-cream/80 hover:text-warm text-sm transition-colors"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span className="mr-2 text-base">📷</span>
+                Instagram
+              </Link>
+            </div>
           </div>
         </div>
         <div className="mt-10 pt-8 border-t border-cream/10 text-center text-cream/60 text-sm">
-          © {new Date().getFullYear()} SSBI Interior Design. All rights reserved.
+          © {new Date().getFullYear()} SSB Interiors. All rights reserved.
         </div>
       </div>
     </footer>

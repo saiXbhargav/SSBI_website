@@ -146,13 +146,18 @@ export async function POST(request: NextRequest) {
       console.warn("Saving inquiry to file failed:", fileError);
     }
 
-    // Fire-and-forget notifications; don't block response on these
-    sendEmailNotification(payload).catch((err) =>
-      console.error("Email notification failed:", err)
-    );
-    sendWhatsAppNotification(payload).catch((err) =>
-      console.error("WhatsApp notification failed:", err)
-    );
+    // Await notifications to prevent serverless function from terminating before they finish
+    try {
+      await sendEmailNotification(payload);
+    } catch (err) {
+      console.error("Email notification failed:", err);
+    }
+
+    try {
+      await sendWhatsAppNotification(payload);
+    } catch (err) {
+      console.error("WhatsApp notification failed:", err);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {

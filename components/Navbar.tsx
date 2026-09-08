@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,11 +21,14 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-md border-b border-sand/50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link
-            href="/"
-            className="font-display text-xl md:text-2xl font-semibold text-charcoal hover:text-warm transition-colors"
-          >
-            SSBI
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/ssbi logo.png"
+              alt="SSB Interiors logo"
+              width={110}
+              height={110}
+            />
+            
           </Link>
 
           {/* Desktop */}
