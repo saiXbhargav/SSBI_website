@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import nodemailer from "nodemailer";
-import twilio from "twilio";
 
 async function saveToFile(payload: {
   name: string;
@@ -84,42 +83,6 @@ ${payload.requirements}
   });
 }
 
-async function sendWhatsAppNotification(payload: {
-  name: string;
-  phone: string;
-  email: string;
-  requirements: string;
-}) {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const fromWhatsApp = process.env.TWILIO_WHATSAPP_FROM; // e.g. 'whatsapp:+14155238886'
-  const toWhatsApp =
-    process.env.NOTIFY_WHATSAPP_TO ?? "whatsapp:+918919647134"; // your WhatsApp number
-
-  if (!accountSid || !authToken || !fromWhatsApp) {
-    console.warn("WhatsApp notification skipped – Twilio env vars not configured");
-    return;
-  }
-
-  const client = twilio(accountSid, authToken);
-
-  const body = `New SSBI inquiry:
-
-Name: ${payload.name}
-Phone: ${payload.phone}
-Email: ${payload.email}
-
-Requirements:
-${payload.requirements}
-`;
-
-  await client.messages.create({
-    from: fromWhatsApp,
-    to: toWhatsApp,
-    body,
-  });
-}
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -151,12 +114,6 @@ export async function POST(request: NextRequest) {
       await sendEmailNotification(payload);
     } catch (err) {
       console.error("Email notification failed:", err);
-    }
-
-    try {
-      await sendWhatsAppNotification(payload);
-    } catch (err) {
-      console.error("WhatsApp notification failed:", err);
     }
 
     return NextResponse.json({ success: true });
